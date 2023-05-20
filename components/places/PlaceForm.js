@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
+import ImagePicker from './ImagePicker';
 
 const PlaceForm = () => {
   const [title, setTitle] = useState('');
@@ -19,6 +20,7 @@ const PlaceForm = () => {
           style={styles.input}
         />
       </View>
+      <ImagePicker />
     </ScrollView>
   );
 };
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.quaternary,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 6,
   },
   label: {
     fontSize: 18,
