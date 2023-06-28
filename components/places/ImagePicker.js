@@ -9,7 +9,7 @@ import {
 import { Colors } from '../../constants/colors';
 import OutlineButton from '../ui/OutlineButton';
 
-const ImagePicker = () => {
+const ImagePicker = ({ onImage }) => {
   const [image, setImage] = useState(null);
   const [status, requestPermission] = useCameraPermissions();
 
@@ -46,6 +46,7 @@ const ImagePicker = () => {
 
     if (!imageResult.canceled) {
       setImage(imageResult.assets[0].uri);
+      onImage(imageResult.assets[0].uri);
     }
   };
 
@@ -55,32 +56,20 @@ const ImagePicker = () => {
 
   return (
     <View style={styles.container}>
-      <View></View>
-
       <View style={styles.imageContainer}>
         {image ? (
-          <Image
-            source={{ uri: image }}
-            style={{ width: '100%', height: '100%' }}
-          />
+          <Image source={{ uri: image }} style={styles.image} />
         ) : (
           <Text style={styles.imageFallbackText}>No image taken yet</Text>
         )}
       </View>
-      <OutlineButton
-        onPress={pickImage}
-        iconName="camera-reverse"
-        iconSize={30}
-        iconColor={Colors.secondary}
-      >
+      <OutlineButton onPress={pickImage} iconName="camera-reverse">
         {image ? 'Update' : 'Take'} image
       </OutlineButton>
       {image && (
         <OutlineButton
           onPress={deleteImageHandler}
           iconName="ios-remove-circle-outline"
-          iconSize={30}
-          iconColor={Colors.secondary}
         >
           Delete Image
         </OutlineButton>
@@ -96,7 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 16,
     marginTop: 24,
   },
   imageContainer: {
@@ -109,8 +97,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.quaternary,
     marginTop: 10,
     borderRadius: 6,
+    overflow: 'hidden',
   },
   imageFallbackText: {
     color: Colors.secondary,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 6,
   },
 });

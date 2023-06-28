@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
 import ImagePicker from './ImagePicker';
+import LocationPicker from './LocationPicker';
+import Button from '../ui/Button';
+import { Place } from '../../models/place';
 
-const PlaceForm = () => {
+const PlaceForm = ({ onAddPlace }) => {
   const [title, setTitle] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState();
 
-  const onChangeTitleHandler = (titleInput) => {
+  const changeTitleHandler = (titleInput) => {
     setTitle(titleInput);
+  };
+
+  const imageHandler = (imageUri) => {
+    setSelectedImage(imageUri);
+  };
+  const locationHandler = useCallback((location) => {
+    setSelectedLocation(location);
+  }, []);
+
+  const submitPlaceHandler = () => {
+    const placeData = new Place(title, selectedImage, selectedLocation);
+    onAddPlace(placeData);
+    setTitle('');
+    setSelectedImage('');
+    setSelectedLocation('');
   };
 
   return (
@@ -15,12 +35,14 @@ const PlaceForm = () => {
       <View>
         <Text style={styles.label}>Title:</Text>
         <TextInput
-          onChangeText={onChangeTitleHandler}
+          onChangeText={changeTitleHandler}
           value={title}
           style={styles.input}
         />
       </View>
-      <ImagePicker />
+      <ImagePicker onImage={imageHandler} />
+      <LocationPicker onLocation={locationHandler} />
+      <Button onPress={submitPlaceHandler}>Add place</Button>
     </ScrollView>
   );
 };
@@ -30,10 +52,10 @@ export default PlaceForm;
 const styles = StyleSheet.create({
   form: {
     marginTop: 24,
+    marginBottom: 80,
+    marginHorizontal: 16,
   },
   input: {
-    marginRight: 16,
-    marginLeft: 16,
     marginTop: 8,
     padding: 10,
     fontSize: 16,
@@ -46,8 +68,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: 700,
-    marginRight: 16,
-    marginLeft: 16,
     color: Colors.terciary,
   },
 });
