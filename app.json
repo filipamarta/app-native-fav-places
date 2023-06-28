@@ -30,6 +30,12 @@
         {
           "cameraPermission": "The app needs accesses to your camera in order to take photos of your favourite places."
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow the app to use your location."
+        }
       ]
     ]
   }
