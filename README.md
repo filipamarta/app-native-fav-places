@@ -2,11 +2,9 @@
 
 A React Native expo app experience using native tools like camera, image-picker, location, database with SQL to create a list of favourite places in Lisbon.
 
-![Screen create place](<[http://url/to/img.png](https://github.com/filipamarta/app-native-fav-places/blob/main/assets/create-place.png)>)
+![Create place screen](https://github.com/filipamarta/app-native-fav-places/blob/main/assets/create-place.png)
 
-![Screen place details](<[http://url/to/img.png](https://github.com/filipamarta/app-native-fav-places/blob/main/assets/place-details.png)>)
-
-![Places app](https://github.com/filipamarta/app-native-fav-places/blob/main/assets/places.gif)
+![Place details screen](https://github.com/filipamarta/app-native-fav-places/blob/main/assets/place-details.png)
 
 ## Installation
 
